@@ -75,8 +75,16 @@ public class Classification {
          * Initialisation du lexique *
          *****************************/
         
-        Categorie categorie = new Categorie("Environnement");
-        categorie.initLexique("./LexiqueENVIRONNEMENT-SCIENCES.txt");
+        Categorie environnement = new Categorie("Environnement");
+        environnement.initLexique("./LexiqueENVIRONNEMENT-SCIENCES.txt");
+        Categorie politique = new Categorie("Politique");
+        politique.initLexique("./LexiquePOLITIQUE.txt");
+        Categorie economie = new Categorie("Economie");
+        economie.initLexique("./LexiqueECONOMIE.txt");
+        Categorie culture = new Categorie("Culture");
+        culture.initLexique("./LexiqueCULTURE.txt");
+        Categorie sport = new Categorie("Sport");
+        sport.initLexique("./LexiqueSPORT.txt");
 
         
         //Unit tests sur entierPourChaine
@@ -86,7 +94,7 @@ public class Classification {
         //        System.out.println(UtilitairePaireChaineEntier.entierPourChaine(categorie.getLexique(), mot));
 
         //affichage du score
-        System.out.println("Score : " + categorie.score(depeches.get(0)));
+        System.out.println("Score : " + environnement.score(depeches.get(0)));
 
     }
 
