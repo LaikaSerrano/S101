@@ -25,8 +25,36 @@ public class Categorie {
 
 
     // initialisation du lexique de la catégorie à partir du contenu d'un fichier texte
-    public void initLexique(String nomFichier) {
+    public static void initLexique(String nomFichier) {
+        ArrayList<PaireChaineEntier> lexique = new ArrayList<>();
+        try {
+            // lecture du fichier d'entrée
+            FileInputStream file = new FileInputStream(nomFichier);
+            Scanner scanner = new Scanner(file);
 
+            while (scanner.hasNextLine()) {
+                String ligne = scanner.nextLine();
+                ligne = ligne.toLowerCase();
+                String[] mots = ligne.split(":");
+                String mot = mots[0];
+                int poids = Integer.parseInt(mots[1]);
+                PaireChaineEntier paire = new PaireChaineEntier(mot, poids);
+                lexique.add(paire);
+                String lignes = ligne.substring(0);
+                while (scanner.hasNextLine() && !ligne.equals("")) {
+                    ligne = scanner.nextLine();
+                    if (!ligne.equals("")) {
+                        lignes = lignes + '\n' + ligne;
+                    }
+                }
+            }
+            scanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for(PaireChaineEntier paire : lexique){
+            System.out.println(paire.getChaine() + " " + paire.getEntier());
+        }
     }
 
 

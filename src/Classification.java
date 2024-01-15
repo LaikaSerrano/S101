@@ -72,6 +72,8 @@ public class Classification {
             depeches.get(i).afficher();
         }
 
+        Categorie.initLexique("./LexiqueSport.txt");
+
     }
 
 
