@@ -3,9 +3,19 @@ import java.util.ArrayList;
 public class UtilitairePaireChaineEntier {
 
 
+    /***
+     * @pre: 
+     * @post: retourne l'indice de la chaine chaine dans la liste listePaires
+     * @param listePaires
+     * @param chaine
+     */
     public static int indicePourChaine(ArrayList<PaireChaineEntier> listePaires, String chaine) {
-        return 0;
-
+        for (PaireChaineEntier chaineEntier : listePaires) {
+            if (chaineEntier.getChaine().equals(chaine)) {
+                return listePaires.indexOf(chaineEntier);
+            }
+        }
+        return -1;
     }
 
     /***
@@ -36,9 +46,17 @@ public class UtilitairePaireChaineEntier {
         return chaine;
     }
 
-
+    /**
+     * @post: renvoie la moyenne des entiers de la liste listePaires
+     * @param listePaires
+     * @return float moyenne
+     */
     public static float moyenne(ArrayList<PaireChaineEntier> listePaires) {
-        return 0;
+        int sum = 0;
+        for (PaireChaineEntier chaineEntier : listePaires) {
+            sum += chaineEntier.getEntier();
+        }
+        return (float) sum / listePaires.size();
     }
 
 }

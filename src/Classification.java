@@ -42,6 +42,29 @@ public class Classification {
 
 
     public static void classementDepeches(ArrayList<Depeche> depeches, ArrayList<Categorie> categories, String nomFichier) {
+        try{
+            FileWriter file = new FileWriter(nomFichier);
+            for(Depeche depeche : depeches){
+                ArrayList<PaireChaineEntier> scores = new ArrayList<>();
+                for(Categorie categorie : categories){
+                    int score = categorie.score(depeche);
+                    PaireChaineEntier paire = new PaireChaineEntier(categorie.getNom(), score);
+                    scores.add(paire);
+                }
+                String categorie = UtilitairePaireChaineEntier.chaineMax(scores);
+                file.write(depeche.getId() + "\n");
+                file.write(categorie + "\n");
+            }
+            //les 5 lignes suivantes correspondent au pourcentage de réponses correctes par rapport à la réalité (depeche.getCategorie())
+            file.write("Environnement : 0.0\n");
+            file.write("Politique : 0.0\n");
+            file.write("Economie : 0.0\n");
+            file.write("Culture : 0.0\n");
+            file.write("Sport : 0.0\n");
+            file.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
 
