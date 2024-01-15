@@ -85,6 +85,7 @@ public class Classification {
 
     }
 
+
     public static void main(String[] args) {
 
         //Chargement des dépêches en mémoire
@@ -117,17 +118,17 @@ public class Classification {
         categories.add(sport);
 
         // liste de score en fonction de la catégorie
-
         ArrayList<PaireChaineEntier> scores = new ArrayList<>();
-        Depeche depeche = depeches.get(0);
         for(int i = 0; i < categories.size(); i++){
-            int score = categories.get(i).score(depeche);
-            PaireChaineEntier paire = new PaireChaineEntier(categories.get(i).getNom(), score);
-            scores.add(paire);
+            int score = categories.get(i).score(depeches.get(i));
+            scores.add(new PaireChaineEntier(categories.get(i).getNom(), score));
         }
-        for (PaireChaineEntier elem: scores) {
-            System.out.println(elem);
+        for(PaireChaineEntier score : scores){
+            System.out.println(score);
         }
+
+        System.out.println("La catégorie ayant le score max est : " + UtilitairePaireChaineEntier.chaineMax(scores));
+
 
         
         //Unit tests sur entierPourChaine
