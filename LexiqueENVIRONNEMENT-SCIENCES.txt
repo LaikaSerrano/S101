@@ -18,3 +18,4 @@ Biomasse:1
 Durabilité:2
 Éco-responsabilité:2
 Réserve naturelle:1
+cellules:2

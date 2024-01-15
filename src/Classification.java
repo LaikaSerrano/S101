@@ -76,7 +76,7 @@ public class Classification {
         categorie.initLexique("./LexiqueENVIRONNEMENT-SCIENCES.txt");
 
         Scanner lecteur = new Scanner(System.in);
-        System.out.println("saississez un mot : ");
+//        System.out.println("saississez un mot : ");
 //        String mot = lecteur.nextLine();
 //        System.out.println(UtilitairePaireChaineEntier.entierPourChaine(categorie.getLexique(), mot));
 
