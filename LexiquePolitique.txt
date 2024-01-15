@@ -1,0 +1,20 @@
+Démocratie:3
+Gouvernance:3
+Élections:3
+Législation:2
+Parti politique:3
+Pouvoir exécutif:2
+Diplomatie:3
+Idéologie:2
+Citoyenneté:2
+Lobbying:1
+Politique étrangère:3
+Réforme:2
+Droits de l'homme:3
+Autoritarisme:1
+Coalition:2
+Opposition:2
+État-providence:2
+Souveraineté:2
+Populisme:2
+Pluralisme politique:2

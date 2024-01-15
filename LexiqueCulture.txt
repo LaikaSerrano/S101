@@ -1,0 +1,20 @@
+Art contemporain:3
+Patrimoine culturel:2
+Festival:2
+Multiculturalisme:2
+Tradition:2
+Créativité:3
+Identité culturelle:2
+Cinéma indépendant:2
+Folklore:1
+Innovation artistique:3
+Expression artistique:2
+Musée:3
+Diversité culturelle:2
+Révolution culturelle:1
+Subculture:1
+Design:2
+Littérature contemporaine:2
+Héritage:2
+Artisanat:1
+Mode:3
