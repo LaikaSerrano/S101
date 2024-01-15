@@ -75,6 +75,11 @@ public class Classification {
         Categorie categorie = new Categorie("Sport");
         categorie.initLexique("./LexiqueSport.txt");
 
+        Scanner lecteur = new Scanner(System.in);
+        System.out.println("saississez un mot : ");
+        String mot = lecteur.nextLine();
+        UtilitairePaireChaineEntier.entierPourChaine(categorie.getLexique(), mot);
+
     }
 
 
