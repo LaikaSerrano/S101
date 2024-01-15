@@ -72,16 +72,17 @@ public class Classification {
             depeches.get(i).afficher();
         }
 
-        Categorie categorie = new Categorie("Sport");
-        categorie.initLexique("./LexiqueSport.txt");
+        Categorie categorie = new Categorie("Environnement");
+        categorie.initLexique("./LexiqueENVIRONNEMENT-SCIENCES.txt");
 
         Scanner lecteur = new Scanner(System.in);
         System.out.println("saississez un mot : ");
-        String mot = lecteur.nextLine();
-        UtilitairePaireChaineEntier.entierPourChaine(categorie.getLexique(), mot);
+//        String mot = lecteur.nextLine();
+//        System.out.println(UtilitairePaireChaineEntier.entierPourChaine(categorie.getLexique(), mot));
+
+        System.out.println("Score : " + categorie.score(depeches.get(0)));
 
     }
 
 
 }
-
