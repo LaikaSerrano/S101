@@ -22,5 +22,10 @@ public class PaireChaineEntier {
     public void setEntier(int entier) {
         this.entier = entier;
     }
+    
+    @Override
+    public String toString(){
+        return chaine + " " + entier;
+    }
 
 }
