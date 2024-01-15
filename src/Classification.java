@@ -86,6 +86,26 @@ public class Classification {
         Categorie sport = new Categorie("Sport");
         sport.initLexique("./LexiqueSPORT.txt");
 
+        ArrayList<Categorie> categories = new ArrayList<>();
+        categories.add(environnement);
+        categories.add(politique);
+        categories.add(economie);
+        categories.add(culture);
+        categories.add(sport);
+
+        // liste de score en fonction de la catégorie
+
+        ArrayList<PaireChaineEntier> scores = new ArrayList<>();
+        Depeche depeche = depeches.get(0);
+        for(int i = 0; i < categories.size(); i++){
+            int score = categories.get(i).score(depeche);
+            PaireChaineEntier paire = new PaireChaineEntier(categories.get(i).getNom(), score);
+            scores.add(paire);
+        }
+        for (PaireChaineEntier elem: scores) {
+            System.out.println(elem);
+        }
+
         
         //Unit tests sur entierPourChaine
         Scanner lecteur = new Scanner(System.in);
