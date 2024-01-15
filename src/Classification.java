@@ -71,15 +71,21 @@ public class Classification {
         for (int i = 0; i < depeches.size(); i++) {
             depeches.get(i).afficher();
         }
-
+        /*****************************
+         * Initialisation du lexique *
+         *****************************/
+        
         Categorie categorie = new Categorie("Environnement");
         categorie.initLexique("./LexiqueENVIRONNEMENT-SCIENCES.txt");
 
+        
+        //Unit tests sur entierPourChaine
         Scanner lecteur = new Scanner(System.in);
-//        System.out.println("saississez un mot : ");
-//        String mot = lecteur.nextLine();
-//        System.out.println(UtilitairePaireChaineEntier.entierPourChaine(categorie.getLexique(), mot));
+        //        System.out.println("saississez un mot : ");
+        //        String mot = lecteur.nextLine();
+        //        System.out.println(UtilitairePaireChaineEntier.entierPourChaine(categorie.getLexique(), mot));
 
+        //affichage du score
         System.out.println("Score : " + categorie.score(depeches.get(0)));
 
     }

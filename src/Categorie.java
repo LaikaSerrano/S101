@@ -23,6 +23,11 @@ public class Categorie {
         return lexique;
     }
 
+    /***
+        @pre: nbr est une chaine contenant un seul chiffre mais qui peut contenir des espaces
+        @post: retourne le chiffre contenu dans nbr
+        @param nbr
+     ***/
     private static int Atoi(String nbr){
         String[] list = nbr.split("");
         int result = 0;
@@ -36,6 +41,11 @@ public class Categorie {
         return result;
     }
 
+    /***
+     * @pre: nomFichier, path vers le fichier que l'on veut traiter 
+     * @post: this.lexique est un ArrayList de tout les mots du lexique avec leur poids
+     * @param nomFichier
+     */
     // initialisation du lexique de la catégorie à partir du contenu d'un fichier texte
     public void initLexique(String nomFichier) {
         lexique = new ArrayList<>();
@@ -59,21 +69,19 @@ public class Categorie {
 
     //calcul du score d'une dépêche pour la catégorie
     public int score(Depeche d) {
-        ArrayList<String> mots = d.getMots();
+        ArrayList<String> mots = d.getMots(); //tout les mots de la dépêche
         String categorie = d.getCategorie();
         String nomFichiers = "./Lexique"+ categorie + ".txt";
         initLexique(nomFichiers);
         int score = 0;
         for(String mot:mots){
             for(PaireChaineEntier paire : lexique){
-                if(mot.equals(paire.getChaine())){
-                    score += paire.getEntier();
+                if(mot.equals(paire.getChaine())){ //si le mot est contenu dans le lexique
+                    score += paire.getEntier(); //ajouter le poids du mot au score
                 }
             }
         }
-
         return score;
     }
-
 
 }
