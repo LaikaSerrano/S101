@@ -23,33 +23,32 @@ public class Categorie {
         return lexique;
     }
 
-    private static int Atoi(String nbr){
-        String[] list = nbr.split("");
-        int result = 0;
-        int i = 0;
-        while(i < list.length) {
-            if (list[i].compareTo(" ") != 0){
-                result = Integer.parseInt(list[i]);
-            }
-            i++;
-        }
-        return result;
-    }
 
     // initialisation du lexique de la catégorie à partir du contenu d'un fichier texte
-    public void initLexique(String nomFichier) {
-        lexique = new ArrayList<>();
+    public static void initLexique(String nomFichier) {
+        ArrayList<PaireChaineEntier> lexique = new ArrayList<>();
         try {
+            // lecture du fichier d'entrée
             FileInputStream file = new FileInputStream(nomFichier);
             Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()){
+
+            while (scanner.hasNextLine()) {
                 String ligne = scanner.nextLine();
-                String[] list = ligne.split(":");
-                String chaine = list[0];
-                int entier = Atoi(list[1]);
-                PaireChaineEntier paire = new PaireChaineEntier(chaine, entier);
+                ligne = ligne.toLowerCase();
+                String[] mots = ligne.split(":");
+                String mot = mots[0];
+                int poids = Integer.parseInt(mots[1]);
+                PaireChaineEntier paire = new PaireChaineEntier(mot, poids);
                 lexique.add(paire);
+                String lignes = ligne.substring(0);
+                while (scanner.hasNextLine() && !ligne.equals("")) {
+                    ligne = scanner.nextLine();
+                    if (!ligne.equals("")) {
+                        lignes = lignes + '\n' + ligne;
+                    }
+                }
             }
+            scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,7 +60,20 @@ public class Categorie {
 
     //calcul du score d'une dépêche pour la catégorie
     public int score(Depeche d) {
-        return 0;
+        ArrayList<String> mots = d.getMots();
+        String categorie = d.getCategorie();
+        String nomFichiers = "./Lexique"+ categorie + ".txt";
+        initLexique(nomFichiers);
+        int score = 0;
+        for(String mot:mots){
+            for(PaireChaineEntier paire : lexique){
+                if(mot.equals(paire.getChaine())){
+                    score += paire.getEntier();
+                }
+            }
+        }
+
+        return score;
     }
 
 
