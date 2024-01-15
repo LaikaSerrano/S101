@@ -1,0 +1,20 @@
+Biodiversité: 3
+Écosystème: 2
+Réchauffement climatique: 3
+Développement durable: 2
+Pollution: 2
+Conservation: 1
+Ressources renouvelables: 2
+Ozone: 1
+Déforestation: 2
+Énergie renouvelable: 3
+Écologie: 2
+Acidification: 1
+Gaz à effet de serre: 3
+Érosion: 1
+Transition énergétique: 2
+Réduction des déchets: 2
+Biomasse: 1
+Durabilité: 2
+Éco-responsabilité: 2
+Réserve naturelle: 1
