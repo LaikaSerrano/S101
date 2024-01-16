@@ -1,3 +1,5 @@
+import jdk.jshell.execution.Util;
+
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -70,6 +72,31 @@ public class Classification {
 
     public static ArrayList<PaireChaineEntier> initDico(ArrayList<Depeche> depeches, String categorie) {
         ArrayList<PaireChaineEntier> resultat = new ArrayList<>();
+        ArrayList<String> mots = new ArrayList<>();
+        int i = 0;
+        for(Depeche depeche: depeches){
+            if(depeche.getCategorie().equals(categorie)){
+                for(String mot:depeche.getMots()){
+                    if(mot.length()>2){
+                        mots.add(mot);
+                    }
+                }
+            }
+        }
+        mots = UtilitairePaireChaineEntier.triFusion(mots);
+        while(i< mots.size()){
+            while(i+1 < mots.size() && mots.get(i).equals(mots.get(i+1))){
+                i++;
+            }
+            if(mots.get(i).length() > 3) {
+                resultat.add(new PaireChaineEntier(mots.get(i), 0));
+            }
+            i++;
+        }
+
+
+
+
         return resultat;
 
     }
@@ -127,7 +154,9 @@ public class Classification {
             System.out.println(score);
         }
 
-        System.out.println("La catégorie ayant le score max est : " + UtilitairePaireChaineEntier.chaineMax(scores));
+        System.out.println("La catégorie ayant le score max est : " + UtilitairePaireChaineEntier.chaineMax(scores)); // prend le score max de scores
+
+        System.out.println(initDico(depeches, "ECONOMIE"));
 
 
         
