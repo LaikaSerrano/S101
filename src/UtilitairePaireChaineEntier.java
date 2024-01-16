@@ -34,6 +34,11 @@ public class UtilitairePaireChaineEntier {
          return entier;
     }
 
+    /***
+     * @pre: 
+     * @post: retourne la chaine associée à l'entier entier
+     * @param listePaires
+     */
     public static String chaineMax(ArrayList<PaireChaineEntier> listePaires) {
         int max = 0;
         String chaine = "";
@@ -59,25 +64,34 @@ public class UtilitairePaireChaineEntier {
         return (float) sum / listePaires.size();
     }
 
+    /***
+     * @pre: liste non triée
+     * @post: retourne la liste triée
+     * @param liste
+     */
     public static ArrayList<String> triFusion(ArrayList<String> liste){
-        if(liste.size() <= 1){
+        if(liste.size() <= 1)
             return liste;
-        }
         ArrayList<String> liste1 = new ArrayList<>();
         ArrayList<String> liste2 = new ArrayList<>();
         for(int i = 0; i < liste.size(); i++){
-            if(i < liste.size()/2){
+            if(i < liste.size()/2)
                 liste1.add(liste.get(i));
-            }else{
+            else
                 liste2.add(liste.get(i));
-            }
         }
         liste1 = triFusion(liste1);
         liste2 = triFusion(liste2);
         return fusion(liste1, liste2);
     }
 
-    public static ArrayList<String> fusion(ArrayList<String> liste1, ArrayList<String> liste2){
+    /***
+     * @pre: liste1 et liste2 triées
+     * @post: renvoie la fusion des deux listes
+     * @param liste1
+     * @param liste2
+     */
+    private static ArrayList<String> fusion(ArrayList<String> liste1, ArrayList<String> liste2){
         ArrayList<String> resultat = new ArrayList<>();
         int i = 0;
         int j = 0;
@@ -85,7 +99,8 @@ public class UtilitairePaireChaineEntier {
             if(liste1.get(i).compareTo(liste2.get(j)) < 0){
                 resultat.add(liste1.get(i));
                 i++;
-            }else{
+            }
+            else{
                 resultat.add(liste2.get(j));
                 j++;
             }
@@ -101,6 +116,11 @@ public class UtilitairePaireChaineEntier {
         return resultat;
     }
 
+    /**
+     * @post: renvoie l'entier maximum de la liste de PaireChaineEntier
+     * @param scores
+     * @return
+     */
     public static int entierMax(ArrayList<PaireChaineEntier> scores) {
         int max = 0;
         for(PaireChaineEntier score : scores){
