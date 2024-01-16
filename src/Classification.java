@@ -44,18 +44,19 @@ public class Classification {
 
 
     public static void classementDepeches(ArrayList<Depeche> depeches, ArrayList<Categorie> categories, String nomFichier) {
+        //TODO
         try{
-            FileWriter file = new FileWriter(nomFichier);
+            FileWriter file = new FileWriter(nomFichier); //création du fichier de sortie
             for(Depeche depeche : depeches){
                 ArrayList<PaireChaineEntier> scores = new ArrayList<>();
                 for(Categorie categorie : categories){
                     int score = categorie.score(depeche);
                     PaireChaineEntier paire = new PaireChaineEntier(categorie.getNom(), score);
-                    scores.add(paire);
+                    scores.add(paire); //ajout des scores pour chaque catégories de dépeches
                 }
                 String categorie = UtilitairePaireChaineEntier.chaineMax(scores);
                 file.write(depeche.getId() + ":");
-                file.write(categorie + "\n");
+                file.write(categorie + "\n"); //écriture dans le fichier de sortie
                 scores=null;
             }
             //les 5 lignes suivantes correspondent au pourcentage de réponses correctes par rapport à la réalité (depeche.getCategorie())
@@ -66,33 +67,34 @@ public class Classification {
     }
 
 
+    /***
+     * @pre: depeches, ArrayList de toutes les dépêches
+     * @post: retourne un ArrayList de PaireChaineEntier contenant tous les mots de plus de 2 lettres
+     * @param depeches
+     * @param categorie
+     */
     public static ArrayList<PaireChaineEntier> initDico(ArrayList<Depeche> depeches, String categorie) {
         ArrayList<PaireChaineEntier> resultat = new ArrayList<>();
         ArrayList<String> mots = new ArrayList<>();
         int i = 0;
+        //vérifier pour chaque depeche si la catégorie correspond à la catégorie passée en paramètre
         for(Depeche depeche: depeches){
             if(depeche.getCategorie().equals(categorie)){
                 for(String mot:depeche.getMots()){
-                    if(mot.length()>2){
-                        mots.add(mot);
-                    }
+                    if(mot.length() > 3)
+                        mots.add(mot); //ajouter chaque mots de plus de 3 lettres
                 }
             }
         }
-        mots = UtilitairePaireChaineEntier.triFusion(mots);
-        while(i< mots.size()){
-            while(i+1 < mots.size() && mots.get(i).equals(mots.get(i+1))){
-                i++;
+        mots = UtilitairePaireChaineEntier.triFusion(mots); //trier pour simplifier la vérification
+        while(i< mots.size()) {
+            while (i + 1 < mots.size() && mots.get(i).equals(mots.get(i + 1))) { //tant que le mot suivant est le même
+                i++; //passer a la suite
             }
-            if(mots.get(i).length() > 3) {
-                resultat.add(new PaireChaineEntier(mots.get(i), 0));
-            }
+            if (mots.get(i).length() > 3) //pour les mots de plus de 3 lettres
+                resultat.add(new PaireChaineEntier(mots.get(i), 0)); //ajouter avec un score égal a 0
             i++;
         }
-
-
-
-
         return resultat;
 
     }
