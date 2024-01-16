@@ -54,15 +54,11 @@ public class Classification {
                     scores.add(paire);
                 }
                 String categorie = UtilitairePaireChaineEntier.chaineMax(scores);
-                file.write(depeche.getId() + "\n");
+                file.write(depeche.getId() + ":");
                 file.write(categorie + "\n");
+                scores=null;
             }
             //les 5 lignes suivantes correspondent au pourcentage de réponses correctes par rapport à la réalité (depeche.getCategorie())
-            file.write("Environnement : 0.0\n");
-            file.write("Politique : 0.0\n");
-            file.write("Economie : 0.0\n");
-            file.write("Culture : 0.0\n");
-            file.write("Sport : 0.0\n");
             file.close();
         }catch(IOException e){
             e.printStackTrace();
@@ -105,7 +101,11 @@ public class Classification {
     }
 
     public static int poidsPourScore(int score) {
-        return 0;
+        if (score < 0)
+            return 1;
+        else if (score == 0)
+            return 2;
+        return 3;
     }
 
     public static void generationLexique(ArrayList<Depeche> depeches, String categorie, String nomFichier) {
@@ -135,7 +135,7 @@ public class Classification {
         Categorie culture = new Categorie("Culture");
         culture.initLexique("./LexiqueCULTURE.txt");
         Categorie sport = new Categorie("Sport");
-        sport.initLexique("./LexiqueSPORT.txt");
+        sport.initLexique("./LexiqueSPORTS.txt");
 
         ArrayList<Categorie> categories = new ArrayList<>();
         categories.add(environnement);
@@ -147,7 +147,7 @@ public class Classification {
         // liste de score en fonction de la catégorie
         ArrayList<PaireChaineEntier> scores = new ArrayList<>();
         for(int i = 0; i < categories.size(); i++){
-            int score = categories.get(i).score(depeches.get(i));
+            int score = categories.get(i).score(depeches.get(402));
             scores.add(new PaireChaineEntier(categories.get(i).getNom(), score));
         }
         for(PaireChaineEntier score : scores){
@@ -158,6 +158,7 @@ public class Classification {
 
         System.out.println(initDico(depeches, "ECONOMIE"));
 
+        classementDepeches(depeches, categories, "./resultat.txt");
 
         
         //Unit tests sur entierPourChaine
@@ -167,7 +168,7 @@ public class Classification {
         //        System.out.println(UtilitairePaireChaineEntier.entierPourChaine(categorie.getLexique(), mot));
 
         //affichage du score
-        System.out.println("Score : " + environnement.score(depeches.get(0)));
+//        System.out.println("Score : " + environnement.score(depeches.get(0)));
 
     }
 

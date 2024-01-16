@@ -101,4 +101,13 @@ public class UtilitairePaireChaineEntier {
         return resultat;
     }
 
+    public static int entierMax(ArrayList<PaireChaineEntier> scores) {
+        int max = 0;
+        for(PaireChaineEntier score : scores){
+            if(score.getEntier() > max){
+                max = score.getEntier();
+            }
+        }
+        return max;
+    }
 }
