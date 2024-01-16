@@ -1,20 +1,14 @@
-Croissance économique:3
-Inflation:3
-Marché financier:3
-Investissement:3
-Mondialisation:3
-Politique monétaire:2
-PIB:3
-Commerce international:3
-Dette publique:2
-Entrepreneurship:2
-Chômage:3
-Politique fiscale:2
-Concurrence:2
-Économie circulaire:2
-Développement économique:3
-Taux de change:3
-Régulation:2
-Économie collaborative:2
-Rentabilité:2
-Innovation économique:3
+croissance:2
+banques:3
+crise:3
+milliards:2
+millions:2
+économie:3
+société:2
+financière:3
+générale:2
+hausse:2
+salariés:2
+accord:2
+emplois:3
+dollars:3
