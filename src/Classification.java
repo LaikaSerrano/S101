@@ -50,7 +50,7 @@ public class Classification {
      * @param nomFichier
      */
     public static void classementDepeches(ArrayList<Depeche> depeches, ArrayList<Categorie> categories, String nomFichier) {
-        //TODO régler la complixité de ce truc
+        //TODO optimiser 
         try{
             FileWriter file = new FileWriter(nomFichier);
             ArrayList<String> categoriesDepeches = new ArrayList<>();
@@ -120,15 +120,14 @@ public class Classification {
     }
 
     public static void calculScores(ArrayList<Depeche> depeches, String categorie, ArrayList<PaireChaineEntier> dictionnaire) {
+        //TODO optimiser
         for(Depeche depeche:depeches){
             for(PaireChaineEntier paire:dictionnaire){
                 for(String mot:depeche.getMots()){
-                    if(mot.equals(paire.getChaine()) && depeche.getCategorie().equals(categorie)){
+                    if(mot.equals(paire.getChaine()) && depeche.getCategorie().equals(categorie))
                         paire.setEntier(paire.getEntier()+1);
-                    }else if(mot.equals(paire.getChaine()) && !depeche.getCategorie().equals(categorie)){
+                    else if(mot.equals(paire.getChaine()) && !depeche.getCategorie().equals(categorie))
                         paire.setEntier(paire.getEntier()-1);
-
-                    }
                 }
             }
         }
@@ -143,6 +142,7 @@ public class Classification {
     }
 
     public static void generationLexique(ArrayList<Depeche> depeches, String categorie, String nomFichier) {
+        //TODO optimiser
         ArrayList<PaireChaineEntier> dictionnaire = initDico(depeches, categorie);
         calculScores(depeches, categorie, dictionnaire);
         try{
