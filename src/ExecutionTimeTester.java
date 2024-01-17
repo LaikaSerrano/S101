@@ -7,21 +7,26 @@ public class ExecutionTimeTester {
     public static void main(String[] args) {
         Classification classification = new Classification();
         ArrayList<Categorie> categories = new ArrayList<>();
-        Categorie categorie1 = new Categorie("sport");
-        Categorie categorie2 = new Categorie("politique");
-        Categorie categorie3 = new Categorie("economie");
-        Categorie categorie4 = new Categorie("culture");
-        Categorie categorie5 = new Categorie("environnement");
+        Categorie categorie1 = new Categorie("SPORTS");
+        Categorie categorie2 = new Categorie("POLITIQUE");
+        Categorie categorie3 = new Categorie("ECONOMIE");
+        Categorie categorie4 = new Categorie("CULTURE");
+        Categorie categorie5 = new Categorie("ENVIRONNEMENT-SCIENCES");
         categories.add(categorie1);
         categories.add(categorie2);
         categories.add(categorie3);
         categories.add(categorie4);
         categories.add(categorie5);
-        long startTime = System.currentTimeMillis();
         lectureDepeches("./depeches.txt");
         classification.classementDepeches(lectureDepeches("./depeches.txt"), categories, "./resultat.txt");
+
+        
         classification.initDico(lectureDepeches("./depeches.txt"), "ECONOMIE");
+
+        long startTime = System.currentTimeMillis();
         classification.calculScores(lectureDepeches("./depeches.txt"), "ECONOMIE", classification.initDico(lectureDepeches("./depeches.txt"), "ECONOMIE"));
+        long endTime = System.currentTimeMillis();
+        
         classification.generationLexique(lectureDepeches("./depeches.txt"), "ECONOMIE", "./LexiqueECONOMIE.txt");
         categorie1.initLexique("./LexiqueENVIRONNEMENT-SCIENCES.txt");
         categorie1.score(lectureDepeches("./depeches.txt").get(0));
@@ -31,7 +36,6 @@ public class ExecutionTimeTester {
         UtilitairePaireChaineEntier.indicePourChaine(categorie1.getLexique(), "pour");
         UtilitairePaireChaineEntier.entierMax(categorie1.getLexique());
 
-        long endTime = System.currentTimeMillis();
         System.out.println("votre execution a été réalisée en : " + (endTime-startTime) + "ms");
     }
 

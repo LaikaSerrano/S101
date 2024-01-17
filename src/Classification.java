@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Classification {
@@ -52,6 +53,13 @@ public class Classification {
     public static void classementDepeches(ArrayList<Depeche> depeches, ArrayList<Categorie> categories, String nomFichier) {
         //TODO optimiser 
         try{
+            ArrayList<PaireChaineEntier> verite = new ArrayList<>();
+            for (Categorie cat:categories) {
+                verite.add(new PaireChaineEntier(cat.getNom(), 0));
+                if (cat.getLexique() == null) {
+                    cat.initLexique("./Lexique" + cat.getNom() + ".txt");
+                }
+            }
             FileWriter file = new FileWriter(nomFichier);
             ArrayList<String> categoriesDepeches = new ArrayList<>();
             for(Depeche depeche:depeches){
@@ -60,9 +68,7 @@ public class Classification {
                 categoriesDepeches.add(UtilitairePaireChaineEntier.chaineMax(scores));
             }
             // vérification de la vérité des scores
-            ArrayList<PaireChaineEntier> verite = new ArrayList<>();
-            for (Categorie cat:categories)
-                verite.add(new PaireChaineEntier(cat.getNom(), 0));
+            
             
             for(int i = 0; i < categoriesDepeches.size(); i++) {
                 for (int j = 0; j < categories.size(); j++) {
@@ -119,19 +125,35 @@ public class Classification {
 
     }
 
+//    public static void calculScores(ArrayList<Depeche> depeches, String categorie, ArrayList<PaireChaineEntier> dictionnaire) {
+//        //TODO optimiser
+//        for(Depeche depeche:depeches){
+//            for(PaireChaineEntier paire:dictionnaire){
+//                for(String mot:depeche.getMots()){
+//                    if(mot.equals(paire.getChaine()) && depeche.getCategorie().equals(categorie))
+//                        paire.setEntier(paire.getEntier()+1);
+//                    else if(mot.equals(paire.getChaine()) && !depeche.getCategorie().equals(categorie))
+//                        paire.setEntier(paire.getEntier()-1);
+//                }
+//            }
+//        }
+//    }
+
     public static void calculScores(ArrayList<Depeche> depeches, String categorie, ArrayList<PaireChaineEntier> dictionnaire) {
-        //TODO optimiser
-        for(Depeche depeche:depeches){
-            for(PaireChaineEntier paire:dictionnaire){
-                for(String mot:depeche.getMots()){
-                    if(mot.equals(paire.getChaine()) && depeche.getCategorie().equals(categorie))
-                        paire.setEntier(paire.getEntier()+1);
-                    else if(mot.equals(paire.getChaine()) && !depeche.getCategorie().equals(categorie))
-                        paire.setEntier(paire.getEntier()-1);
-                }
+        HashMap<String, Integer> map = new HashMap<>();
+
+        for (Depeche depeche : depeches) {
+            for (String mot : depeche.getMots()) {
+                map.put(mot, map.getOrDefault(mot, 0) + (depeche.getCategorie().equals(categorie) ? 1 : -1));
             }
         }
+
+        for (PaireChaineEntier paire : dictionnaire) {
+            paire.setEntier(map.getOrDefault(paire.getChaine(), 0));
+        }
     }
+    
+    
     
     public static int poidsPourScore(int score) {
         if (score < 0)

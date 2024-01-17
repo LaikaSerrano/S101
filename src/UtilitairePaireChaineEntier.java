@@ -143,8 +143,6 @@ public class UtilitairePaireChaineEntier {
         ArrayList<PaireChaineEntier> scores = new ArrayList<>();
         for(Categorie cat:categories){
             score = 0;
-            String nomFichiers = "./Lexique"+ cat.getNom() + ".txt";
-            cat.initLexique(nomFichiers);
             for(String mot:mots){
                 for(PaireChaineEntier paire : cat.getLexique()){
                     if(mot.equals(paire.getChaine())){ //si le mot est contenu dans le lexique
