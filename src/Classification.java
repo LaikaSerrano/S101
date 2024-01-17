@@ -100,6 +100,18 @@ public class Classification {
     }
 
     public static void calculScores(ArrayList<Depeche> depeches, String categorie, ArrayList<PaireChaineEntier> dictionnaire) {
+        for(Depeche depeche:depeches){
+            for(PaireChaineEntier paire:dictionnaire){
+                for(String mot:depeche.getMots()){
+                    if(mot.equals(paire.getChaine()) && depeche.getCategorie().equals(categorie)){
+                        paire.setEntier(paire.getEntier()+1);
+                    }else if(mot.equals(paire.getChaine()) && !depeche.getCategorie().equals(categorie)){
+                        paire.setEntier(paire.getEntier()-1);
+
+                    }
+                }
+            }
+        }
     }
 
     public static int poidsPourScore(int score) {
@@ -111,6 +123,19 @@ public class Classification {
     }
 
     public static void generationLexique(ArrayList<Depeche> depeches, String categorie, String nomFichier) {
+        ArrayList<PaireChaineEntier> dictionnaire = initDico(depeches, categorie);
+        calculScores(depeches, categorie, dictionnaire);
+        try{
+            FileWriter file = new FileWriter(nomFichier);
+            for(PaireChaineEntier paire:dictionnaire){
+                if(poidsPourScore(paire.getEntier()) > 0) {
+                    file.write(paire.getChaine() + ":" + poidsPourScore(paire.getEntier()) + "\n");
+                }
+            }
+            file.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -159,12 +184,25 @@ public class Classification {
         System.out.println("La catégorie ayant le score max est : " + UtilitairePaireChaineEntier.chaineMax(scores)); // prend le score max de scores
 
         System.out.println(initDico(depeches, "ECONOMIE"));
+        ArrayList<PaireChaineEntier> dictionnaire = initDico(depeches, "ECONOMIE");
+
+        calculScores(depeches, "ECONOMIE", dictionnaire);
+        for(PaireChaineEntier paire : dictionnaire){
+            System.out.println(paire);
+        }
+
 
         classementDepeches(depeches, categories, "./resultat.txt");
+        generationLexique(depeches, "ECONOMIE", "./LexiqueECONOMIE.txt");
+        generationLexique(depeches, "CULTURE", "./LexiqueCULTURE.txt");
+        generationLexique(depeches, "SPORTS", "./LexiqueSPORTS.txt");
+        generationLexique(depeches, "POLITIQUE", "./LexiquePOLITIQUE.txt");
+        generationLexique(depeches, "ENVIRONNEMENT-SCIENCES", "./LexiqueENVIRONNEMENT-SCIENCES.txt");
+
 
         
         //Unit tests sur entierPourChaine
-        Scanner lecteur = new Scanner(System.in);
+        // Scanner lecteur = new Scanner(System.in);
         //        System.out.println("saississez un mot : ");
         //        String mot = lecteur.nextLine();
         //        System.out.println(UtilitairePaireChaineEntier.entierPourChaine(categorie.getLexique(), mot));
