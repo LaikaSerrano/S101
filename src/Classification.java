@@ -53,12 +53,32 @@ public class Classification {
         //TODO régler la complixité de ce truc
         try{
             FileWriter file = new FileWriter(nomFichier);
+            ArrayList<String> categoriesDepeches = new ArrayList<>();
             for(Depeche depeche:depeches){
                 ArrayList<PaireChaineEntier> scores = UtilitairePaireChaineEntier.scoreParCat(depeche, categories);
                 file.write(depeche.getId() + ":" + UtilitairePaireChaineEntier.chaineMax(scores) + "\n");
-                System.out.println(scores);
+                categoriesDepeches.add(UtilitairePaireChaineEntier.chaineMax(scores));
             }
             // vérification de la vérité des scores
+            ArrayList<PaireChaineEntier> verite = new ArrayList<>();
+            for (Categorie cat:categories)
+                verite.add(new PaireChaineEntier(cat.getNom(), 0));
+            
+            for(int i = 0; i < categoriesDepeches.size(); i++) {
+                for (int j = 0; j < categories.size(); j++) {
+                    if (categoriesDepeches.get(i).equals(categories.get(j).getNom())) {
+                        verite.get(j).setEntier(verite.get(j).getEntier() + 1);
+                    }
+                }
+            }
+            for(PaireChaineEntier paire:verite){
+                file.write(paire.getChaine() + ":" + paire.getEntier() + "\n");
+            }
+            
+            int moyenne = 0;
+            for(PaireChaineEntier paire:verite) 
+                moyenne += paire.getEntier();
+            file.write("moyenne:" + moyenne / verite.size());
             
             file.close();
         }catch(IOException e){
