@@ -1,0 +1,15 @@
+théâtre:3
+exposition:2
+musée:2
+danse:3
+scène:3
+art:3
+apéra:3
+musique:3
+album:3
+chorégraphe:3
+festival:3
+galerie:3
+artiste:3
+disque:3
+oeuvre:1

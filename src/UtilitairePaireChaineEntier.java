@@ -130,4 +130,30 @@ public class UtilitairePaireChaineEntier {
         }
         return max;
     }
+
+    /***
+     * @post: renvoie un arrayList de tout les scores par catégories de la depeche
+     * @param d
+     * @param categories
+     * @return
+     */
+    public static ArrayList<PaireChaineEntier> scoreParCat(Depeche d, ArrayList<Categorie> categories) {
+        ArrayList<String> mots = d.getMots(); //tout les mots de la dépêche
+        int score;
+        ArrayList<PaireChaineEntier> scores = new ArrayList<>();
+        for(Categorie cat:categories){
+            score = 0;
+            String nomFichiers = "./Lexique"+ cat.getNom() + ".txt";
+            cat.initLexique(nomFichiers);
+            for(String mot:mots){
+                for(PaireChaineEntier paire : cat.getLexique()){
+                    if(mot.equals(paire.getChaine())){ //si le mot est contenu dans le lexique
+                        score += paire.getEntier(); //ajouter le poids du mot au score
+                    }
+                }
+            }
+            scores.add(new PaireChaineEntier(cat.getNom(), score));
+        }
+        return scores;
+    }
 }

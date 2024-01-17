@@ -1,0 +1,11 @@
+ligue:3
+contre:1
+tournoi:3
+coupe:3
+finale:3
+match:2
+équipe:2
+battu:2
+domicile:3
+football:3
+sport:3

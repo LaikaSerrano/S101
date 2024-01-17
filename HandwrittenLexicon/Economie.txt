@@ -1,0 +1,14 @@
+croissance:2
+banques:3
+crise:3
+milliards:2
+millions:2
+économie:3
+société:2
+financière:3
+générale:2
+hausse:2
+salariés:2
+accord:2
+emplois:3
+dollars:3

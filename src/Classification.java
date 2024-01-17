@@ -42,24 +42,24 @@ public class Classification {
         return depeches;
     }
 
-
+    /***
+     * @post: écrit dans le fichier nomFichier l'id de la dépêche et sa catégorie calculée 
+     * @post: puis 6 lignes montrant les moyennes de vérité par calcul sur chaque catégorie et la moyenne totale
+     * @param depeches
+     * @param categories
+     * @param nomFichier
+     */
     public static void classementDepeches(ArrayList<Depeche> depeches, ArrayList<Categorie> categories, String nomFichier) {
-        //TODO
+        //TODO régler la complixité de ce truc
         try{
-            FileWriter file = new FileWriter(nomFichier); //création du fichier de sortie
-            for(Depeche depeche : depeches){
-                ArrayList<PaireChaineEntier> scores = new ArrayList<>();
-                for(Categorie categorie : categories){
-                    int score = categorie.score(depeche);
-                    PaireChaineEntier paire = new PaireChaineEntier(categorie.getNom(), score);
-                    scores.add(paire); //ajout des scores pour chaque catégories de dépeches
-                }
-                String categorie = UtilitairePaireChaineEntier.chaineMax(scores);
-                file.write(depeche.getId() + ":");
-                file.write(categorie + "\n"); //écriture dans le fichier de sortie
-                scores=null;
+            FileWriter file = new FileWriter(nomFichier);
+            for(Depeche depeche:depeches){
+                ArrayList<PaireChaineEntier> scores = UtilitairePaireChaineEntier.scoreParCat(depeche, categories);
+                file.write(depeche.getId() + ":" + UtilitairePaireChaineEntier.chaineMax(scores) + "\n");
+                System.out.println(scores);
             }
-            //les 5 lignes suivantes correspondent au pourcentage de réponses correctes par rapport à la réalité (depeche.getCategorie())
+            // vérification de la vérité des scores
+            
             file.close();
         }catch(IOException e){
             e.printStackTrace();
@@ -113,7 +113,7 @@ public class Classification {
             }
         }
     }
-
+    
     public static int poidsPourScore(int score) {
         if (score < 0)
             return 1;
@@ -153,15 +153,15 @@ public class Classification {
          * Initialisation du lexique *
          *****************************/
         
-        Categorie environnement = new Categorie("Environnement");
+        Categorie environnement = new Categorie("ENVIRONNEMENT-SCIENCES");
         environnement.initLexique("./LexiqueENVIRONNEMENT-SCIENCES.txt");
-        Categorie politique = new Categorie("Politique");
+        Categorie politique = new Categorie("POLITIQUE");
         politique.initLexique("./LexiquePOLITIQUE.txt");
-        Categorie economie = new Categorie("Economie");
+        Categorie economie = new Categorie("ECONOMIE");
         economie.initLexique("./LexiqueECONOMIE.txt");
-        Categorie culture = new Categorie("Culture");
+        Categorie culture = new Categorie("CULTURE");
         culture.initLexique("./LexiqueCULTURE.txt");
-        Categorie sport = new Categorie("Sport");
+        Categorie sport = new Categorie("SPORTS");
         sport.initLexique("./LexiqueSPORTS.txt");
 
         ArrayList<Categorie> categories = new ArrayList<>();

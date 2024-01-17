@@ -65,8 +65,7 @@ public class Categorie {
             e.printStackTrace();
         }
     }
-
-
+    
     //calcul du score d'une dépêche pour la catégorie
     public int score(Depeche d) {
         ArrayList<String> mots = d.getMots(); //tout les mots de la dépêche

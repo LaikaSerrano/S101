@@ -1,0 +1,13 @@
+Co2:3
+pollution:3
+association:2
+agriculture:3
+agricol:3
+eau:3
+cellules:3
+cancer:3
+chercheur:3
+gaz:2
+recherche:3
+santé:3
+planète:3
