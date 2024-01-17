@@ -57,9 +57,13 @@ public class Categorie {
                 ligne = ligne.toLowerCase();
                 String[] list = ligne.split(":");
                 String chaine = list[0];
-                int entier = Atoi(list[1]);
-                PaireChaineEntier paire = new PaireChaineEntier(chaine, entier);
-                lexique.add(paire);
+                if (list[1] != "") {
+                    int entier = Atoi(list[1]);
+                    PaireChaineEntier paire = new PaireChaineEntier(chaine, entier);
+                    lexique.add(paire);
+                }
+                else 
+                    break;
             }
         } catch (IOException e) {
             e.printStackTrace();
