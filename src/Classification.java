@@ -194,7 +194,7 @@ public class Classification {
         // liste de score en fonction de la catégorie
         ArrayList<PaireChaineEntier> scores = new ArrayList<>();
         for(int i = 0; i < categories.size(); i++){
-            int score = categories.get(i).score(depeches.get(402));
+            int score = categories.get(i).score(depeches.get(i));
             scores.add(new PaireChaineEntier(categories.get(i).getNom(), score));
         }
         for(PaireChaineEntier score : scores){
