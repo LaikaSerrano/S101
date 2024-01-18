@@ -1,5 +1,6 @@
 import jdk.jshell.execution.Util;
 
+import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Classification {
+public class Classification extends Compteur {
 
 
     private static ArrayList<Depeche> lectureDepeches(String nomFichier) {
@@ -129,11 +130,13 @@ public class Classification {
 
         for (Depeche depeche : depeches) {
             for (String mot : depeche.getMots()) {
+                compteur++;
                 map.put(mot, map.getOrDefault(mot, 0) + (depeche.getCategorie().equals(categorie) ? 1 : -1));
             }
         }
 
         for (PaireChaineEntier paire : dictionnaire) {
+            compteur++;
             paire.setEntier(map.getOrDefault(paire.getChaine(), 0));
         }
     }
@@ -195,6 +198,7 @@ public class Classification {
         categories.add(economie);
         categories.add(culture);
         categories.add(sport);
+        long startTime = System.currentTimeMillis();
 
         // liste de score en fonction de la catégorie
         ArrayList<PaireChaineEntier> scores = new ArrayList<>();
@@ -223,7 +227,9 @@ public class Classification {
         generationLexique(depeches, "SPORTS", "./LexiqueSPORTS.txt");
         generationLexique(depeches, "POLITIQUE", "./LexiquePOLITIQUE.txt");
         generationLexique(depeches, "ENVIRONNEMENT-SCIENCES", "./LexiqueENVIRONNEMENT-SCIENCES.txt");
-
+        System.out.println(compteur);
+        long endTime = System.currentTimeMillis();
+        System.out.println("votre execution a été réalisée en : " + (endTime-startTime) + "ms");
 
         
         //Unit tests sur entierPourChaine
