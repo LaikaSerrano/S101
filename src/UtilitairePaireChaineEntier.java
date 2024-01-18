@@ -139,18 +139,20 @@ public class UtilitairePaireChaineEntier {
      * @return
      */
     public static ArrayList<PaireChaineEntier> scoreParCat(Depeche d, ArrayList<Categorie> categories) {
-        ArrayList<String> mots = d.getMots();
+
+        ArrayList<String> mots = d.getMots(); //tout les mots de la dépêche
+        int score =1 ;
         ArrayList<PaireChaineEntier> scores = new ArrayList<>();
+        for(Categorie cat:categories){
+            System.out.println();
+            score = 0;
+            for(String mot:mots){
+                for(PaireChaineEntier paire : cat.getLexique()){
+                    if(mot.equals(paire.getChaine())){ //si le mot est contenu dans le lexique
+                        score += paire.getEntier(); //ajouter le poids du mot au score
+                    }
+                }
 
-        for (Categorie cat : categories) {
-            HashMap<String, Integer> map = new HashMap<>();
-            for (PaireChaineEntier paire : cat.getLexique()) {
-                map.put(paire.getChaine(), paire.getEntier());
-            }
-
-            int score = 0;
-            for (String mot : mots) {
-                score += map.getOrDefault(mot, 0);
             }
 
             scores.add(new PaireChaineEntier(cat.getNom(), score));

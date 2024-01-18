@@ -62,8 +62,6 @@ public class Categorie extends Compteur {
                     PaireChaineEntier paire = new PaireChaineEntier(chaine, entier);
                     lexique.add(paire);
                 }
-                else 
-                    break;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,8 +72,8 @@ public class Categorie extends Compteur {
     public int score(Depeche d) {
         ArrayList<String> mots = d.getMots(); //tout les mots de la dépêche
         String categorie = d.getCategorie();
-        String nomFichiers = "./Lexique"+ categorie + ".txt";
-        initLexique(nomFichiers);
+//        String nomFichiers = "./Lexique"+ categorie + ".txt";
+//        initLexique(nomFichiers);
         int score = 0;
         for(String mot:mots){
             for(PaireChaineEntier paire : lexique){
