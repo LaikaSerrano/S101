@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UtilitairePaireChaineEntier {
 
@@ -138,6 +139,7 @@ public class UtilitairePaireChaineEntier {
      * @return
      */
     public static ArrayList<PaireChaineEntier> scoreParCat(Depeche d, ArrayList<Categorie> categories) {
+
         ArrayList<String> mots = d.getMots(); //tout les mots de la dépêche
         int score =1 ;
         ArrayList<PaireChaineEntier> scores = new ArrayList<>();
@@ -150,10 +152,12 @@ public class UtilitairePaireChaineEntier {
                         score += paire.getEntier(); //ajouter le poids du mot au score
                     }
                 }
+
             }
+
             scores.add(new PaireChaineEntier(cat.getNom(), score));
         }
-        System.out.println(scores);
+
         return scores;
     }
 }

@@ -18,15 +18,23 @@ public class ExecutionTimeTester {
         categories.add(categorie4);
         categories.add(categorie5);
         long startTime = System.currentTimeMillis();
+
         lectureDepeches("./depeches.txt");
         classification.classementDepeches(lectureDepeches("./depeches.txt"), categories, "./resultat.txt");
 
-        
-        classification.initDico(lectureDepeches("./depeches.txt"), "ECONOMIE");
+
+        classification.classementDepeches(lectureDepeches("./depeches.txt"), categories, "./resultat.txt"); //219 ms
+
+        classification.initDico(lectureDepeches("./depeches.txt"), "ECONOMIE"); //30ms
+
+        classification.calculScores(lectureDepeches("./depeches.txt"), "ECONOMIE", classification.initDico(lectureDepeches("./depeches.txt"), "ECONOMIE")); //59ms
+
+        classification.generationLexique(lectureDepeches("./depeches.txt"), "ECONOMIE", "./LexiqueECONOMIE.txt"); //35ms
 
         classification.calculScores(lectureDepeches("./depeches.txt"), "ECONOMIE", classification.initDico(lectureDepeches("./depeches.txt"), "ECONOMIE"));
         
         classification.generationLexique(lectureDepeches("./depeches.txt"), "ECONOMIE", "./LexiqueECONOMIE.txt");
+
         categorie1.initLexique("./LexiqueENVIRONNEMENT-SCIENCES.txt");
         categorie1.score(lectureDepeches("./depeches.txt").get(0));
         UtilitairePaireChaineEntier.chaineMax(categorie1.getLexique());
@@ -36,7 +44,8 @@ public class ExecutionTimeTester {
         UtilitairePaireChaineEntier.entierMax(categorie1.getLexique());
 
         long endTime = System.currentTimeMillis();
-        System.out.println("votre execution a été réalisée en : " + (endTime-startTime) + "ms");
+
+        System.out.println("votre execution a été réalisée en : " + (endTime-startTime) + "ms"); //total : 620ms
     }
 
     private static ArrayList<Depeche> lectureDepeches(String nomFichier) {

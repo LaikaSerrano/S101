@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Categorie {
+public class Categorie extends Compteur {
 
     private String nom; // le nom de la catégorie p.ex : sport, politique,...
     private ArrayList<PaireChaineEntier> lexique; //le lexique de la catégorie
@@ -62,7 +62,6 @@ public class Categorie {
                     PaireChaineEntier paire = new PaireChaineEntier(chaine, entier);
                     lexique.add(paire);
                 }
-                
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,6 +78,7 @@ public class Categorie {
         for(String mot:mots){
             for(PaireChaineEntier paire : lexique){
                 if(mot.equals(paire.getChaine())){ //si le mot est contenu dans le lexique
+                    compteur++; //incrémenter le compteur
                     score += paire.getEntier(); //ajouter le poids du mot au score
                 }
             }
