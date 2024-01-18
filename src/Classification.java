@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Classification {
@@ -43,52 +44,108 @@ public class Classification {
     }
 
     /***
+     * @pre: les lexiques sont initialisés
      * @post: écrit dans le fichier nomFichier l'id de la dépêche et sa catégorie calculée 
      * @post: puis 6 lignes montrant les moyennes de vérité par calcul sur chaque catégorie et la moyenne totale
      * @param depeches
      * @param categories
      * @param nomFichier
      */
+//    public static void classementDepeches(ArrayList<Depeche> depeches, ArrayList<Categorie> categories, String nomFichier) {
+//        //TODO optimiser 
+//        try{
+//            FileWriter file = new FileWriter(nomFichier);
+//            ArrayList<PaireChaineEntier> moyenne = new ArrayList<>();
+//            for (int i = 0; i < categories.size(); i++) {
+//                moyenne.add(new PaireChaineEntier(categories.get(i).getNom(), 0));
+//            }
+//            for(Depeche depeche: depeches) {
+//                ArrayList<PaireChaineEntier> scores = new ArrayList<>();
+//                for (int i = 0; i < categories.size(); i++) {
+//                    int score = categories.get(i).score(depeche);
+//                    scores.add(new PaireChaineEntier(categories.get(i).getNom(), score));
+//                }
+//                file.write(depeche.getId() + " " + UtilitairePaireChaineEntier.chaineMax(scores) + "\n");
+//            }
+//            
+//            file.close();
+//            
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+//    }
+
     public static void classementDepeches(ArrayList<Depeche> depeches, ArrayList<Categorie> categories, String nomFichier) {
         //TODO optimiser 
         try{
-            ArrayList<PaireChaineEntier> verite = new ArrayList<>();
-            for (Categorie cat:categories) {
-                verite.add(new PaireChaineEntier(cat.getNom(), 0));
-                if(cat.getLexique() == null)
-                    cat.initLexique("./Lexique" + cat.getNom() + ".txt");
-            }
             FileWriter file = new FileWriter(nomFichier);
-            ArrayList<String> categoriesDepeches = new ArrayList<>();
-            for(Depeche depeche:depeches){
-                ArrayList<PaireChaineEntier> scores = UtilitairePaireChaineEntier.scoreParCat(depeche, categories);
-                file.write(depeche.getId() + ":" + UtilitairePaireChaineEntier.chaineMax(scores) + "\n");
-                categoriesDepeches.add(UtilitairePaireChaineEntier.chaineMax(scores));
+            ArrayList<PaireChaineEntier> moyenne = new ArrayList<>();
+            for (int i = 0; i < categories.size(); i++) {
+                moyenne.add(new PaireChaineEntier(categories.get(i).getNom(), 0));
             }
-            // vérification de la vérité des scores
-
-            
-            for(int i = 0; i < categoriesDepeches.size(); i++) {
-                for (int j = 0; j < categories.size(); j++) {
-                    if (categoriesDepeches.get(i).equals(categories.get(j).getNom())) {
-                        verite.get(j).setEntier(verite.get(j).getEntier() + 1);
+            for(Depeche depeche: depeches) {
+                ArrayList<PaireChaineEntier> scores = new ArrayList<>();
+                for (int i = 0; i < categories.size(); i++) {
+                    // Vérifie si la catégorie de la dépeche est la même que celle actuellement évaluée
+                    if(depeche.getCategorie().equals(categories.get(i).getNom())) {
+                        int score = categories.get(i).score(depeche);
+                        scores.add(new PaireChaineEntier(categories.get(i).getNom(), score));
                     }
                 }
+                if (depeche.getCategorie() == UtilitairePaireChaineEntier.chaineMax(scores)){
+                    for (int i = 0; i < categories.size(); i++) {
+                        if(depeche.getCategorie() == categories.get(i).getNom()) {
+                            moyenne.get(i).setEntier(moyenne.get(i).getEntier() + 1);
+                        }
+                    }
+                }
+                file.write(depeche.getId() + " " + UtilitairePaireChaineEntier.chaineMax(scores) + "\n");
             }
-            for(PaireChaineEntier paire:verite){
-                file.write(paire.getChaine() + ":" + paire.getEntier() + "\n");
+            for (int i = 0; i < categories.size(); i++) {
+                file.write(categories.get(i).getNom() + " " + moyenne.get(i).getEntier() + "\n");
             }
-            
-            int moyenne = 0;
-            for(PaireChaineEntier paire:verite) 
-                moyenne += paire.getEntier();
-            file.write("moyenne:" + moyenne / verite.size());
-            
             file.close();
+
         }catch(IOException e){
             e.printStackTrace();
         }
     }
+
+//    public static void classementDepeches(ArrayList<Depeche> depeches, ArrayList<Categorie> categories, String nomFichier) {
+//        //TODO optimiser 
+//        try{
+//            FileWriter file = new FileWriter(nomFichier);
+//            ArrayList<PaireChaineEntier> moyenne = new ArrayList<>();
+//            int nbErreurs = 0; // Compteur d'erreurs
+//            for (int i = 0; i < categories.size(); i++) {
+//                moyenne.add(new PaireChaineEntier(categories.get(i).getNom(), 0));
+//            }
+//            for(Depeche depeche: depeches) {
+//                ArrayList<PaireChaineEntier> scores = new ArrayList<>();
+//                for (int i = 0; i < categories.size(); i++) {
+//                    if(depeche.getCategorie().equals(categories.get(i).getNom())) {
+//                        int score = categories.get(i).score(depeche);
+//                        scores.add(new PaireChaineEntier(categories.get(i).getNom(), score));
+//                    }
+//                }
+//                String categorieTrouvee = UtilitairePaireChaineEntier.chaineMax(scores);
+//                file.write(depeche.getId() + " " + categorieTrouvee + "\n");
+//                // Vérifie si la catégorie trouvée est la bonne
+//                if(!depeche.getCategorie().equals(categorieTrouvee)) {
+//                    nbErreurs++; // Incrémente le compteur d'erreurs
+//                }
+//            }
+//            // Écrit le total des erreurs dans le fichier
+//            file.write("Total des erreurs : " + nbErreurs + "\n");
+//
+//            file.close();
+//
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+//    }
+    
+    
 
 
     /***
@@ -187,6 +244,7 @@ public class Classification {
         culture.initLexique("./LexiqueCULTURE.txt");
         Categorie sport = new Categorie("SPORTS");
         sport.initLexique("./LexiqueSPORTS.txt");
+        System.out.println(sport.getLexique());
 
         ArrayList<Categorie> categories = new ArrayList<>();
         categories.add(environnement);

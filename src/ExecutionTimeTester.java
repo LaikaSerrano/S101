@@ -17,15 +17,14 @@ public class ExecutionTimeTester {
         categories.add(categorie3);
         categories.add(categorie4);
         categories.add(categorie5);
+        long startTime = System.currentTimeMillis();
         lectureDepeches("./depeches.txt");
         classification.classementDepeches(lectureDepeches("./depeches.txt"), categories, "./resultat.txt");
 
         
         classification.initDico(lectureDepeches("./depeches.txt"), "ECONOMIE");
 
-        long startTime = System.currentTimeMillis();
         classification.calculScores(lectureDepeches("./depeches.txt"), "ECONOMIE", classification.initDico(lectureDepeches("./depeches.txt"), "ECONOMIE"));
-        long endTime = System.currentTimeMillis();
         
         classification.generationLexique(lectureDepeches("./depeches.txt"), "ECONOMIE", "./LexiqueECONOMIE.txt");
         categorie1.initLexique("./LexiqueENVIRONNEMENT-SCIENCES.txt");
@@ -36,6 +35,7 @@ public class ExecutionTimeTester {
         UtilitairePaireChaineEntier.indicePourChaine(categorie1.getLexique(), "pour");
         UtilitairePaireChaineEntier.entierMax(categorie1.getLexique());
 
+        long endTime = System.currentTimeMillis();
         System.out.println("votre execution a été réalisée en : " + (endTime-startTime) + "ms");
     }
 

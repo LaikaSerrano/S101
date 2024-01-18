@@ -57,9 +57,12 @@ public class Categorie {
                 ligne = ligne.toLowerCase();
                 String[] list = ligne.split(":");
                 String chaine = list[0];
-                int entier = Atoi(list[1]);
-                PaireChaineEntier paire = new PaireChaineEntier(chaine, entier);
-                lexique.add(paire);
+                if (list[1] != "") {
+                    int entier = Atoi(list[1]);
+                    PaireChaineEntier paire = new PaireChaineEntier(chaine, entier);
+                    lexique.add(paire);
+                }
+                
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -70,8 +73,8 @@ public class Categorie {
     public int score(Depeche d) {
         ArrayList<String> mots = d.getMots(); //tout les mots de la dépêche
         String categorie = d.getCategorie();
-        String nomFichiers = "./Lexique"+ categorie + ".txt";
-        initLexique(nomFichiers);
+//        String nomFichiers = "./Lexique"+ categorie + ".txt";
+//        initLexique(nomFichiers);
         int score = 0;
         for(String mot:mots){
             for(PaireChaineEntier paire : lexique){

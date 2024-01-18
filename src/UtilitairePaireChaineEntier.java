@@ -139,9 +139,10 @@ public class UtilitairePaireChaineEntier {
      */
     public static ArrayList<PaireChaineEntier> scoreParCat(Depeche d, ArrayList<Categorie> categories) {
         ArrayList<String> mots = d.getMots(); //tout les mots de la dépêche
-        int score;
+        int score =1 ;
         ArrayList<PaireChaineEntier> scores = new ArrayList<>();
         for(Categorie cat:categories){
+            System.out.println();
             score = 0;
             for(String mot:mots){
                 for(PaireChaineEntier paire : cat.getLexique()){
@@ -152,6 +153,7 @@ public class UtilitairePaireChaineEntier {
             }
             scores.add(new PaireChaineEntier(cat.getNom(), score));
         }
+        System.out.println(scores);
         return scores;
     }
 }
