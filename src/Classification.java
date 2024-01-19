@@ -93,9 +93,9 @@ public class Classification extends Compteur {
                         scores.add(new PaireChaineEntier(categories.get(i).getNom(), score));
                     }
                 }
-                if (depeche.getCategorie() == UtilitairePaireChaineEntier.chaineMax(scores)){
+                if (depeche.getCategorie().compareTo(UtilitairePaireChaineEntier.chaineMax(scores))== 0){
                     for (int i = 0; i < categories.size(); i++) {
-                        if(depeche.getCategorie() == categories.get(i).getNom()) {
+                        if(depeche.getCategorie().compareTo(categories.get(i).getNom())== 0) {
                             moyenne.get(i).setEntier(moyenne.get(i).getEntier() + 1);
                         }
                     }
@@ -224,11 +224,13 @@ public class Classification extends Compteur {
     }
 
 
+
     public static void main(String[] args) {
 
         //Chargement des dépêches en mémoire
         System.out.println("chargement des dépêches");
         ArrayList<Depeche> depeches = lectureDepeches("./depeches.txt");
+        ArrayList<Depeche> depechestest = lectureDepeches("./test.txt");
 
         for (int i = 0; i < depeches.size(); i++) {
             depeches.get(i).afficher();
@@ -278,7 +280,7 @@ public class Classification extends Compteur {
         }
 
 
-        classementDepeches(depeches, categories, "./resultat.txt");
+        classementDepeches(depechestest, categories, "./resultat.txt");
         generationLexique(depeches, "ECONOMIE", "./LexiqueECONOMIE.txt");
         generationLexique(depeches, "CULTURE", "./LexiqueCULTURE.txt");
         generationLexique(depeches, "SPORTS", "./LexiqueSPORTS.txt");
