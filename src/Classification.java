@@ -103,48 +103,15 @@ public class Classification extends Compteur {
                 file.write(depeche.getId() + " " + UtilitairePaireChaineEntier.chaineMax(scores) + "\n");
             }
             for (int i = 0; i < categories.size(); i++) {
-                file.write(categories.get(i).getNom() + " " + moyenne.get(i).getEntier() + "\n");
+                file.write(categories.get(i).getNom() + " " + moyenne.get(i).getEntier() + "%\n");
             }
+            file.write("Moyenne de toute les catégories " + UtilitairePaireChaineEntier.moyenne(moyenne) + "%\n");
             file.close();
 
         }catch(IOException e){
             e.printStackTrace();
         }
     }
-
-//    public static void classementDepeches(ArrayList<Depeche> depeches, ArrayList<Categorie> categories, String nomFichier) {
-//        //TODO optimiser 
-//        try{
-//            FileWriter file = new FileWriter(nomFichier);
-//            ArrayList<PaireChaineEntier> moyenne = new ArrayList<>();
-//            int nbErreurs = 0; // Compteur d'erreurs
-//            for (int i = 0; i < categories.size(); i++) {
-//                moyenne.add(new PaireChaineEntier(categories.get(i).getNom(), 0));
-//            }
-//            for(Depeche depeche: depeches) {
-//                ArrayList<PaireChaineEntier> scores = new ArrayList<>();
-//                for (int i = 0; i < categories.size(); i++) {
-//                    if(depeche.getCategorie().equals(categories.get(i).getNom())) {
-//                        int score = categories.get(i).score(depeche);
-//                        scores.add(new PaireChaineEntier(categories.get(i).getNom(), score));
-//                    }
-//                }
-//                String categorieTrouvee = UtilitairePaireChaineEntier.chaineMax(scores);
-//                file.write(depeche.getId() + " " + categorieTrouvee + "\n");
-//                // Vérifie si la catégorie trouvée est la bonne
-//                if(!depeche.getCategorie().equals(categorieTrouvee)) {
-//                    nbErreurs++; // Incrémente le compteur d'erreurs
-//                }
-//            }
-//            // Écrit le total des erreurs dans le fichier
-//            file.write("Total des erreurs : " + nbErreurs + "\n");
-//
-//            file.close();
-//
-//        }catch(IOException e){
-//            e.printStackTrace();
-//        }
-//    }
     
     
 
