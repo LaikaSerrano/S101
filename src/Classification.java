@@ -206,7 +206,6 @@ public class Classification extends Compteur {
     }
 
     public static void generationLexique(ArrayList<Depeche> depeches, String categorie, String nomFichier) {
-        //TODO optimiser
         ArrayList<PaireChaineEntier> dictionnaire = initDico(depeches, categorie);
         calculScores(depeches, categorie, dictionnaire);
         try{
@@ -261,6 +260,7 @@ public class Classification extends Compteur {
         ArrayList<PaireChaineEntier> scores = new ArrayList<>();
         for(int i = 0; i < categories.size(); i++){
             int score = categories.get(i).score(depeches.get(i));
+//            System.out.println(compteur);
             scores.add(new PaireChaineEntier(categories.get(i).getNom(), score));
         }
         for(PaireChaineEntier score : scores){
@@ -269,13 +269,13 @@ public class Classification extends Compteur {
 
         System.out.println("La catégorie ayant le score max est : " + UtilitairePaireChaineEntier.chaineMax(scores)); // prend le score max de scores
 
-        System.out.println(initDico(depeches, "ECONOMIE"));
+//        System.out.println(initDico(depeches, "ECONOMIE"));
         ArrayList<PaireChaineEntier> dictionnaire = initDico(depeches, "ECONOMIE");
 
         calculScores(depeches, "ECONOMIE", dictionnaire);
-        for(PaireChaineEntier paire : dictionnaire){
-            System.out.println(paire);
-        }
+//        for(PaireChaineEntier paire : dictionnaire){
+//            System.out.println(paire);
+//        }
 
 
         classementDepeches(depeches, categories, "./resultat.txt");
